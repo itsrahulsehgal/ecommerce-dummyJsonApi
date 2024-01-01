@@ -64,7 +64,7 @@ const Products = ({ limit }) => {
           placeholder="Search products..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="border rounded px-4 py-2 focus:outline-none focus:border-blue-500"
+          className="border rounded px-4 py-2 focus:outline-none focus:border-blue-500 transition duration-300 shadow-md text-gray-700"
         />
       </div>
 
@@ -74,7 +74,7 @@ const Products = ({ limit }) => {
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="border rounded px-2 py-1 focus:outline-none focus:border-blue-500"
+          className="border rounded px-4 py-2 focus:outline-none focus:border-blue-500 transition duration-300 shadow-md text-gray-700"
         >
           <option value="default">Default</option>
           <option value="priceLowToHigh">Price Low to High</option>
@@ -90,7 +90,7 @@ const Products = ({ limit }) => {
               {Array.from({ length: 20 }).map((_, index) => (
                 <div
                   key={index}
-                  className="group relative block overflow-hidden shadow-lg transition duration-500 transform hover:scale-105"
+                  className="group relative block overflow-hidden shadow-lg transition duration-500 transform hover:scale-105 bg-white rounded-md"
                 >
                   <Skeleton height={288} width={288} count={1} />
                   <div className="relative border-2 border-gray-100 bg-white p-4">
@@ -112,15 +112,15 @@ const Products = ({ limit }) => {
               {filteredProducts.map((product, i) => (
                 <div
                   key={i}
-                  className="group w-80 h-[470px] relative block overflow-hidden shadow-lg transition duration-500 transform hover:scale-105"
+                  className="group w-80 h-[470px] relative block overflow-hidden shadow-lg transition duration-500 transform hover:scale-105 bg-white rounded-md"
                 >
                   <img
                     src={product.thumbnail}
                     alt=""
-                    className="object-cover m-auto transition duration-500 group-hover:opacity-80 sm:h-72"
+                    className="object-cover m-auto transition duration-500 group-hover:opacity-80 sm:h-72 rounded-t-md"
                   />
 
-                  <div className="relative border-2 border-gray-100 bg-white p-6">
+                  <div className="relative border-2 border-gray-100 bg-white p-6 rounded-b-md">
                     <h3 className="mt-4 text-lg font-medium text-gray-900">
                       {product.title}
                     </h3>
