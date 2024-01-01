@@ -11,14 +11,24 @@ const Products = ({ limit }) => {
   const { data: products, status } = useSelector((state) => state.products);
   const url = `https://dummyjson.com/products/${limit ? "?&limit=8" : ""}`;
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("default");
 
   useEffect(() => {
     dispatch(getProducts(url));
   }, [dispatch, url]);
 
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = products
+    .filter((product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortBy === "priceLowToHigh") {
+        return a.price - b.price;
+      } else if (sortBy === "priceHighToLow") {
+        return b.price - a.price;
+      }
+      return 0;
+    });
 
   if (status === StatusCode.REJECTED) {
     return (
@@ -55,6 +65,19 @@ const Products = ({ limit }) => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="border rounded px-4 py-2"
         />
+      </div>
+
+      <div className="flex justify-center mb-4">
+        <label className="mr-2">Sort by:</label>
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="border rounded px-2 py-1"
+        >
+          <option value="default">Default</option>
+          <option value="priceLowToHigh">Price Low to High</option>
+          <option value="priceHighToLow">Price High to Low</option>
+        </select>
       </div>
 
       <div className="container p-8 m-auto">
