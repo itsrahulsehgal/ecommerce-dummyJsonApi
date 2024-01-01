@@ -57,22 +57,24 @@ const Products = ({ limit }) => {
 
   return (
     <>
+      {/* Search Bar */}
       <div className="text-center my-4">
         <input
           type="text"
           placeholder="Search products..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="border rounded px-4 py-2"
+          className="border rounded px-4 py-2 focus:outline-none focus:border-blue-500"
         />
       </div>
 
+      {/* Filter Options */}
       <div className="flex justify-center mb-4">
-        <label className="mr-2">Sort by:</label>
+        <label className="mr-2 text-gray-700">Sort by:</label>
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="border rounded px-2 py-1"
+          className="border rounded px-2 py-1 focus:outline-none focus:border-blue-500"
         >
           <option value="default">Default</option>
           <option value="priceLowToHigh">Price Low to High</option>
@@ -80,12 +82,16 @@ const Products = ({ limit }) => {
         </select>
       </div>
 
+      {/* Products Container */}
       <div className="container p-8 m-auto">
         <div className="flex justify-center items-center flex-wrap gap-4 ">
           {status === StatusCode.PENDING ? (
             <div className="flex justify-center items-center flex-wrap gap-4 ">
               {Array.from({ length: 20 }).map((_, index) => (
-                <div key={index} className="group relative block overflow-hidden">
+                <div
+                  key={index}
+                  className="group relative block overflow-hidden shadow-lg transition duration-500 transform hover:scale-105"
+                >
                   <Skeleton height={288} width={288} count={1} />
                   <div className="relative border-2 border-gray-100 bg-white p-4">
                     <h3 className="mt-4 text-lg font-medium text-gray-900">
@@ -104,11 +110,14 @@ const Products = ({ limit }) => {
           ) : (
             <div className="flex justify-center items-center flex-wrap gap-4 ">
               {filteredProducts.map((product, i) => (
-                <div key={i} className="group w-80 h-[470px] relative block overflow-hidden">
+                <div
+                  key={i}
+                  className="group w-80 h-[470px] relative block overflow-hidden shadow-lg transition duration-500 transform hover:scale-105"
+                >
                   <img
                     src={product.thumbnail}
                     alt=""
-                    className="object-cover m-auto transition duration-500 group-hover:scale-105 sm:h-72"
+                    className="object-cover m-auto transition duration-500 group-hover:opacity-80 sm:h-72"
                   />
 
                   <div className="relative border-2 border-gray-100 bg-white p-6">
@@ -121,7 +130,7 @@ const Products = ({ limit }) => {
                     </p>
 
                     <Link to={`/product/${product.id}`}>
-                      <button className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105">
+                      <button className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:bg-yellow-500">
                         View Details
                       </button>
                     </Link>
